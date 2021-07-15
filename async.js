@@ -1,3 +1,7 @@
+const {
+  resolve
+} = require("core-js/fn/promise");
+
 function a() {
   console.log('a');
 }
@@ -13,6 +17,7 @@ function a() {
     console.log('a');
   }, 1000)
 }
+
 function b() {
   console.log('b');
 }
@@ -28,6 +33,7 @@ function a(cb) {
     cb()
   }, 1000)
 }
+
 function b() {
   console.log('b');
 }
@@ -42,28 +48,28 @@ function a(cb) {
   setTimeout(function () {
     console.log('a');
     cb()
-  }, 1000)  
+  }, 1000)
 }
 
 function b(cb) {
   setTimeout(function () {
     console.log('b');
     cb()
-  }, 1000)  
+  }, 1000)
 }
 
 function c(cb) {
   setTimeout(function () {
     console.log('c');
     cb()
-  }, 1000)  
+  }, 1000)
 }
 
 function d(cb) {
   setTimeout(function () {
     console.log('d');
     cb()
-  }, 1000)  
+  }, 1000)
 }
 
 // 콜백 지옥
@@ -85,6 +91,7 @@ function a() {
     }, 1000)
   })
 }
+
 function b() {
   return new Promise(resolve => {
     setTimeout(function () {
@@ -93,6 +100,7 @@ function b() {
     }, 1000)
   })
 }
+
 function c() {
   return new Promise(resolve => {
     setTimeout(function () {
@@ -101,6 +109,7 @@ function c() {
     }, 1000)
   })
 }
+
 function d() {
   return new Promise(resolve => {
     setTimeout(function () {
@@ -114,3 +123,49 @@ a()
   .then(() => b())
   .then(() => c())
   .then(() => d())
+
+async function asyncFunc() {
+  await a()
+  await b()
+  await c()
+  await d()
+  console.log('done');
+}
+
+function a() {
+  return new Promise((resolve, reject) => {
+    if (isError) {
+      reject(Error)
+    }
+    setTimeout(() => {
+      console.log('a');
+      resolve('done')
+    }, 1000)
+  })
+}
+
+a()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((error) => {
+    console.log(error);
+    alert(error)
+  })
+  .finally(() => {
+
+  })
+
+async function asyncFunc() {
+  try {
+    const res = await a()
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+    alert(error.message)
+  } finally {
+    console.log('done');
+  }
+}
+
+asyncFunc()
