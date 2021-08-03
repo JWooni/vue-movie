@@ -29,13 +29,9 @@ export default {
     }
   },
   methods: {
-    searchMovies() {
-      axios.get(`http://www.omdbapi.com/?apikey=c407722c&s=${this.title}`)
-      .then(res => {
-        console.log(res);
-      })
-
-      console.log('searchMovies');
+    async searchMovies() {
+      const res = await axios.get(`http://www.omdbapi.com/?apikey=c407722c&s=${this.title}`)
+      console.log(res.data);
     }
   }
 }
