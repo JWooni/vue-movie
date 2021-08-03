@@ -30,8 +30,10 @@ export default {
   },
   methods: {
     async searchMovies() {
+      this.loading = true
       const res = await axios.get(`http://www.omdbapi.com/?apikey=c407722c&s=${this.title}`)
       console.log(res.data);
+      this.loading = false
     }
   }
 }
